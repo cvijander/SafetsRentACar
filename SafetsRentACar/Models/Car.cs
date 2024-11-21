@@ -6,8 +6,14 @@
         {
             Audi,
             BMW,
+            Nissan,
+            Ford,
+            Mitsubishi,
+            Mazda,
+            Honda,
             Tesla,
             Toyota,
+            Subaru,
             Volkswagen
         }
 
@@ -27,6 +33,8 @@
             Manual
         }
 
+        
+
         public enum DriveType
         {
             FrontWheel,
@@ -43,6 +51,15 @@
             Minivan,
             Truck,
             Pickup
+        }
+
+        public enum NumberSeats
+        {
+            Two = 2,
+            Five = 5,
+            Seven = 7,
+            Eight = 8,
+            More = 9
         }
 
         public enum ColorType
@@ -81,6 +98,7 @@
 
         public ColorType Color { get; set; }
 
+        public NumberSeats Seats { get; set; }
         public int Mileage { get; set; }
 
         public string VIN { get;set; }

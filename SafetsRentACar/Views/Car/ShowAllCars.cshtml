@@ -1,0 +1,54 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<SafetsRentACar.Models.Car>
+
+
+
+<h1>Najpopularniji automobili iz 90 -ih </h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Car id</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Price per day</th>
+            <th>Available</th>
+            <th>Fuel</th>
+            <th>Transmision</th>
+            <th>Drive</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Seats</th>
+            <th>Mileage</th>
+            <th>VIN</th>
+            <th>Licence plate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Car singleCar in Model)
+        {
+            <tr>
+                <td>@singleCar.CarId</td>
+                <td>@singleCar.Make</td>
+                <td>@singleCar.Model</td>
+                <td>@singleCar.Year</td>
+                <td>@singleCar.PricePerDay</td>
+                <td>@singleCar.IsAvailable</td>
+                <td>@singleCar.Fuel</td>
+                <td>@singleCar.Transmision</td>
+                <td>@singleCar.Drive</td>
+                <td>@singleCar.Type</td>
+                <td>@singleCar.Color</td>
+                <td>@singleCar.Seats</td>
+                <td>@singleCar.Mileage</td>
+                <td>@singleCar.VIN</td>
+                <td>@singleCar.LicencePlate</td>
+            </tr>
+        }
+    </tbody>
+</table>

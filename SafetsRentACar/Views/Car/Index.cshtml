@@ -1,0 +1,31 @@
+﻿@model List<SafetsRentACar.Models.Car>
+
+
+
+<h1>Najpopularniji automobili iz 90 -ih </h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Price per day</th>
+            <th>Available</th>            
+            <th>Seats</th>           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Car singleCar in Model)
+        {
+            <tr>
+              <td>@singleCar.Make</td>
+              <td>@singleCar.Model</td>
+              <td>@singleCar.Year</td>
+              <td>@singleCar.PricePerDay</td>
+              <td>@singleCar.IsAvailable</td>             
+              <td>@singleCar.Seats</td>             
+            </tr> 
+        }
+    </tbody>
+</table>
