@@ -1,0 +1,42 @@
+﻿@model IEnumerable<SafetsRentACar.Models.User>
+
+    @{
+        ViewData["Title"] = "Show all users";
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>UserId</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>PhoneNumber</th>
+                <th>Address</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(User singleUser in Model)
+            {
+            <tr>
+                <td>@singleUser.UserId</td>
+                <td>@singleUser.FirstName</td>
+                <td>@singleUser.LastName</td>
+                <td>@singleUser.Username</td>
+                <td>@singleUser.Email</td>
+                <td>@singleUser.PhoneNumber</td>
+                <td>@singleUser.Address</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@singleUser.UserId" class="btn btn-warning btn-sm">Edit</a>
+                    <form asp-action="DeleteConfirmed" asp-route-id="@singleUser.UserId" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+             }
+        </tbody>
+    </table>
+
+
