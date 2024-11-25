@@ -4,6 +4,32 @@
         ViewData["Title"] = "Show all users";
     }
 
+
+    <form asp-action="ShowAllUsers" method="get" class="search-form">
+        <label for="UserId" class="form-label">User Id</label>
+        <input type="number" step="1" class="form-control" id="UserId" name="UserId" value="@Context.Request.Query["UserId"]" />
+
+        <label for="FirstName" class="form-label">Ime</label>
+        <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Context.Request.Query["FirstName"]" />
+
+        <label for="LastName" class="form-label">Prezime</label>
+        <input type="text" class="form-control" id="LastName" name="LastName" value="@Context.Request.Query["LastName"]"/>
+
+        <label for="Username" class="form-label">Korisnicko ime</label>
+        <input type="text" class="form-control" id="Username" name="Username" value="@Context.Request.Query["Username"]"/>
+
+        <label for="Email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Context.Request.Query["Email"]" />
+
+        <label for="PhoneNumber" class="form-label">Broj telefona</label>
+        <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" value="@Context.Request.Query["PhoneNumber"]"/>
+
+        <label for="Address" class="form-label">Adresa</label>
+        <input type="text" id="Address" name="Address" class="form-control" value="@Context.Request.Query["Address"]"/>
+
+        <button type="submit" class="btn btn-primary">Search</button> 
+    </form>
+
     <table class="table table-striped">
         <thead>
             <tr>
