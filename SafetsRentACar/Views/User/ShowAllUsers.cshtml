@@ -4,31 +4,52 @@
         ViewData["Title"] = "Show all users";
     }
 
+<div class="container-fluid" id="search-container">
+    <div class="row">
+        <div class="col col-12">
+            <form asp-action="ShowAllUsers" method="get" class="search-form">
+                <div class="row">
+                    <div class="col  col-md-6 col-lg-4 col-xl-3">
+                        <label for="UserId" class="form-label">User Id</label>
+                        <input type="number" step="1" class="form-control" id="UserId" name="UserId" value="@Context.Request.Query["UserId"]" />
+                     </div>
 
-    <form asp-action="ShowAllUsers" method="get" class="search-form">
-        <label for="UserId" class="form-label">User Id</label>
-        <input type="number" step="1" class="form-control" id="UserId" name="UserId" value="@Context.Request.Query["UserId"]" />
+                    <div class="col  col-md-6 col-lg-4 col-xl-3">
+                        <label for="FirstName" class="form-label">Ime</label>
+                        <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Context.Request.Query["FirstName"]" />
+                     </div>
 
-        <label for="FirstName" class="form-label">Ime</label>
-        <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Context.Request.Query["FirstName"]" />
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="LastName" class="form-label">Prezime</label>
+                        <input type="text" class="form-control" id="LastName" name="LastName" value="@Context.Request.Query["LastName"]" />
+                     </div>
 
-        <label for="LastName" class="form-label">Prezime</label>
-        <input type="text" class="form-control" id="LastName" name="LastName" value="@Context.Request.Query["LastName"]"/>
-
-        <label for="Username" class="form-label">Korisnicko ime</label>
-        <input type="text" class="form-control" id="Username" name="Username" value="@Context.Request.Query["Username"]"/>
-
-        <label for="Email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="Email" name="Email" value="@Context.Request.Query["Email"]" />
-
-        <label for="PhoneNumber" class="form-label">Broj telefona</label>
-        <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" value="@Context.Request.Query["PhoneNumber"]"/>
-
-        <label for="Address" class="form-label">Adresa</label>
-        <input type="text" id="Address" name="Address" class="form-control" value="@Context.Request.Query["Address"]"/>
-
-        <button type="submit" class="btn btn-primary">Search</button> 
-    </form>
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="Username" class="form-label">Korisnicko ime</label>
+                        <input type="text" class="form-control" id="Username" name="Username" value="@Context.Request.Query["Username"]" />
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="Email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="Email" name="Email" value="@Context.Request.Query["Email"]" />
+                    </div>
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="PhoneNumber" class="form-label">Broj telefona</label>
+                        <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" value="@Context.Request.Query["PhoneNumber"]" />
+                    </div>
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="Address" class="form-label">Adresa</label>
+                        <input type="text" id="Address" name="Address" class="form-control" value="@Context.Request.Query["Address"]" />
+                    </div>
+                    <div class="col col-md-12 col-lg-4 col-xl-3">
+                        <button type="submit" class="btn btn-primary ">Search</button>
+                    </div>
+                </div>   
+            </form>
+       </div>
+    </div>
+</div>
 
     <table class="table table-striped">
         <thead>

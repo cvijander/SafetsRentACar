@@ -10,45 +10,10 @@ namespace SafetsRentACar.Controllers
     public class UserController : Controller
     {
 
-        private IEnumerable<User> InitUsers()
-            {
-              var listOfUsers = new List<User>();
-
-                listOfUsers.Add(
-
-                    new User
-                    {
-                        UserId = 1,
-                        FirstName = "Marko",
-                        LastName = "Markovic",
-                        Email = "marko@gmail.com",
-                        PhoneNumber = "06412345678",
-                        Address = "Beograd",
-                        Username = "marko123",
-                        PasswordHash = "Haspasss",
-                    });
-               
-               listOfUsers.Add(
-                   new User
-                    {
-                        UserId = 2,
-                        FirstName = "Darko",
-                        LastName = "MPetrovic",
-                        Email = "darko@gmail.com",
-                        PhoneNumber = "0641231111",
-                        Address = "Beograd",
-                        Username = "darko111",
-                        PasswordHash = "Haspasss",
-                    });
-            return listOfUsers; 
-
-            } 
-        
-
 
         public IActionResult Index( )
         {
-            var users = InitUsers(); 
+            var users = Util.UserData.InitUsers();
 
             return View(users);
         }
@@ -64,7 +29,7 @@ namespace SafetsRentACar.Controllers
         [HttpPost]
         public IActionResult Create(UserViewModel model)
         {
-            var users = InitUsers();
+            var users = Util.UserData.InitUsers();
 
             Console.WriteLine("Uneseno korisničko ime: " + model.Username);
 
@@ -98,6 +63,7 @@ namespace SafetsRentACar.Controllers
                 };
 
                 //users.Add(newUser);
+                Util.UserData.AddUser(newUser);
 
                 return RedirectToAction("ShowAllUsers");
             }
@@ -118,49 +84,44 @@ namespace SafetsRentACar.Controllers
 
         public IActionResult ShowAllUsers(int? UserId, string FirstName, string LastName, string Username, string Email, string PhoneNumber, string Address)
         {
-            var users = InitUsers();
+            var users = Util.UserData.InitUsers();
 
             if (UserId != null)
             {
                 users = users.Where(u => u.UserId == UserId);
             }
 
-            if(!(FirstName == null || FirstName == ""))
+            if (FirstName != null)
             {
                 users = users.Where(u => u.FirstName.ToLower() == FirstName.ToLower().Trim());
             }
 
-            if(!(LastName == null )|| (LastName ==""))
+            if( LastName != null)
             {
                 users = users.Where(u => u.LastName.ToLower() == LastName.ToLower().Trim());
             }
 
-            if(!(Username ==null )|| (Username==""))
+            if( Username != null)
             {
                 users = users.Where(u => u.Username.ToLower() == Username.ToLower().Trim());
             }
 
-            if(!(Email ==null) || (Email ==""))
+            if( Email != null)
             {
                 users = users.Where(u => u.Email.ToLower() == Email.ToLower().Trim());
             }
 
-            if(!(PhoneNumber ==null) || (PhoneNumber =="") )
+            if(PhoneNumber != null)
             {
                 users = users.Where(u => u.PhoneNumber.ToLower() == PhoneNumber.ToLower().Trim());
             }
 
-            if (!(Address ==null) || (Address ==""))
+            if (Address != null)
             {
                 users = users.Where(u => u.Address.ToLower() == Address.ToLower().Trim());
             }
 
 
-           
-            //    < th > Username </ th >
-            //    < th > Email </ th >
-            //    < th > PhoneNumber </ th >
-            //    < th > Address </ th
 
             return View(users);
         }
@@ -170,7 +131,7 @@ namespace SafetsRentACar.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var users = InitUsers();
+            var users = Util.UserData.InitUsers();
             User singleUser = users.FirstOrDefault(u => u.UserId == id);
 
             if (singleUser == null)
@@ -197,9 +158,9 @@ namespace SafetsRentACar.Controllers
         [HttpPost]
         public IActionResult Edit(int id, UserViewModel model)
         {
-            var users = InitUsers();
+            var users = Util.UserData.InitUsers();
             User user = users.FirstOrDefault( u => u.UserId == id);
-            if ( user ==null)
+            if ( user == null)
             {
                 return NotFound();
             }
@@ -226,7 +187,7 @@ namespace SafetsRentACar.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var users = InitUsers();
+            var users = Util.UserData.InitUsers();
             User singleUser = users.FirstOrDefault(u => u.UserId == id);
 
             if(singleUser ==null)
@@ -241,7 +202,7 @@ namespace SafetsRentACar.Controllers
         [HttpPost]
         public IActionResult DeleteConfirmed(int id)
         {
-            var users = InitUsers();
+            var users = Util.UserData.InitUsers();
             User user = users.FirstOrDefault(u => u.UserId == id);
 
             if( user == null )
@@ -250,6 +211,7 @@ namespace SafetsRentACar.Controllers
             }
 
             //_users.Remove(user);
+            Util.UserData.RemoveUser(id);
 
             return RedirectToAction("ShowAllUsers");
         }
