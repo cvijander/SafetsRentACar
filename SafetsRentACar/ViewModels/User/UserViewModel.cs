@@ -40,7 +40,7 @@ namespace SafetsRentACar.ViewModels.User
         [Required(ErrorMessage = "Password  je obavezan")]
         [DataType(DataType.Password)]
         [StringLength(45, MinimumLength = 6, ErrorMessage = "Lozinka mora imati izmedju 6 i 45 karaktera")]
-        [PasswordStrengthAttribute(6, 50, ErrorMessage = "Lozinka mora imati izmedju 6 i 45 karaktera, da ima i minumum 1 veliko slovo i jedan specijalan karakter")]
+        [PasswordStrengthAttribute(6, 45, ErrorMessage = "Lozinka mora imati izmedju 6 i 45 karaktera, da ima i minumum 1 veliko slovo i jedan specijalan karakter")]
         public string PasswordHash { get; set; }
 
         [Required(ErrorMessage = "Potvrda passworda je obavezna")]
