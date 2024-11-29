@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SafetsRentACar.Models
 {
@@ -35,10 +36,11 @@ namespace SafetsRentACar.Models
             Manual
         }
 
-        
 
+        
         public enum DriveType
         {
+            [Description("Prednji pogon")]
             FrontWheel,
             RearWheel,
             AllWheel
@@ -85,11 +87,11 @@ namespace SafetsRentACar.Models
         public CarMake Make { get; set; }
 
         [Required]
-        [StringLength(50,ErrorMessage ="Model ne moze imati vise od 50 karaktera.")]
+        [StringLength(50,ErrorMessage = "Model ne moze imati vise od 50 karaktera.")]
         public string Model { get; set; }
 
         [Required]
-        [Range(1900,2024,ErrorMessage ="Godiste mora biti u ovom rasponu")]
+        [Range(1900,2024,ErrorMessage = "Godiste mora biti u ovom rasponu")]
         public int Year { get; set; }
 
         [Required]
@@ -122,7 +124,7 @@ namespace SafetsRentACar.Models
         public int Mileage { get; set; }
 
         [Required]
-        [StringLength(17,MinimumLength =17)]
+        [StringLength(17,MinimumLength = 17)]
         public string VIN { get;set; }
     
         [Required]
