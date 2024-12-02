@@ -1,0 +1,75 @@
+﻿body.user-page {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: url('/images/User/UserBackground.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+}
+
+/* Pozadinski simbol */
+.background {
+    position: absolute; /* Postavi poziciju kao apsolutnu */
+    top: 0; /* Početak stranice */
+    left: 0;
+    width: 100%; /* Pokriva celu širinu */
+    height: 100%; /* Pokriva celu visinu */
+    z-index: -1; /* Postavlja pozadinu iza forme */
+}
+
+.large-icon {
+    font-size: 200px;
+    color: rgba(200, 200, 200, 0.3); /* Svetla boja i prozirnost */
+    position: absolute;
+    top: 50%; /* Centriraj ikonu */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1; /* Postavi iza forme */
+}
+
+/* Forma */
+.form-container {
+    position: relative; /* Zadržava svoj sloj iznad pozadine */
+    z-index: 1; /* Garantuje da je iznad pozadine */
+    max-width: 500px;
+    margin: 10% auto;
+    background: rgba(255, 255, 255, 0.9); /* Prozirna bela pozadina */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+    .form-container h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .form-container input,
+    .form-container button {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+button.btn-primary {
+    box-sizing: border-box;
+    background-color: gray;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+    button.btn-primary:hover {
+        box-sizing: border-box;
+        background-color: white;
+        color : gray;
+        border : 3px solid gray;
+    }
+
+    .form-group {
+        margin-top:25px;
+    }

@@ -1,20 +1,25 @@
-﻿@model SafetsRentACar.ViewModels.User.UserViewModel
+﻿
+@model SafetsRentACar.ViewModels.User.UserViewModel
 
 @{
     ViewData["IsUserPage"] = true;
 }
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 
 <body class="user-page">
     <div class="background">
-        <i class="fa-solid fa-plus large-icon"></i>   
+        <i class="fa-solid fa-plus large-icon"></i>
+        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-user"></i>
     </div>
 
     <div class="form-container">
         <h2>Kreiranje korisnika</h2>
 
-        <form asp-action="Create" method="post" >
+        <form asp-action="Create" method="post">
             <div class="form-group">
-                <label asp-for="FirstName" class="form-label">Ime:</label>
+                <label asp-for="FirstName" class="form-label"></label>
                 <input asp-for="FirstName" type="text" class="form-control" />
                 <small class="form-text text-muted">Ime je obavezno i mora da ima izmedju 2 i 50 karaktera</small>
                 <span asp-validation-for="FirstName" class="text-danger"></span>
@@ -22,60 +27,60 @@
 
 
             <div class="form-group">
-                <label asp-for="LastName" class="form-label">Prezime:</label>
-                <input asp-for="LastName" type="text"  class="form-control"/>
+                <label asp-for="LastName" class="form-label"></label>
+                <input asp-for="LastName" type="text" class="form-control" />
                 <small class="form-text text-muted">Prezime je obavezno i mora da ima izmedju 2 i 50 karaktera</small>
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Email" class="form-label">Email:</label>
+                <label asp-for="Email" class="form-label"></label>
                 <input asp-for="Email" type="email" class="form-control" />
                 <small class="form-text text-muted">Email je obavezan</small>
-                <span asp-validation-for="Email" class="text-danger"></span> 
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="PhoneNumber" class="form-label">Telefonski broj:</label>
+                <label asp-for="PhoneNumber" class="form-label"></label>
                 <input asp-for="PhoneNumber" type="tel" class="form-control" />
                 <small class="form-text text-muted">Telefonski broj je obavezan i mora da ima izmedju 9 i 15 brojeva</small>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Address" class="form-label">Adresa:</label>
+                <label asp-for="Address" class="form-label"></label>
                 <input asp-for="Address" type="text" class="form-control" />
                 <small class="form-text text-muted">Adresa je obavezna i mora da ima do 100 karaktera</small>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Username" class="form-label">Korisnicko ime:</label>
+                <label asp-for="Username" class="form-label"></label>
                 <input type="text" id="Username" name="Username" class="form-control" />
                 <small class="form-text text-muted">Polje za korisnicko ime nije obavezno. Ukoliko ga ne unesete, bice automatski postavljena vrednost iz email adrese kao korisnicko ime.</small>
                 <!--<span asp-validation-for="Username" class="text-danger"></span>-->
-        
+
             </div>
 
             <div class="form-group">
-                <label asp-for="PasswordHash" class="form-label">Lozinka:</label>
+                <label asp-for="PasswordHash" class="form-label"></label>
                 <input asp-for="PasswordHash" type="password" class="form-control" />
                 <small class="form-text text-muted">Lozinka je obavezna i mora da ima izmedju 6 i 50 karaktera, mora da sadrzi jedno veliko slovo i jedan specijalan karakter</small>
                 <span asp-validation-for="PasswordHash" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="ConfirmPasswordHash" class="form-label">Ponovljena lozinka:</label>
+                <label asp-for="ConfirmPasswordHash" class="form-label"></label>
                 <input asp-for="ConfirmPasswordHash" type="password" class="form-control" />
                 <small class="form-text text-muted">Ponovljena lozinka je obavezna i mora da bude identicna lozinki</small>
                 <span asp-validation-for="ConfirmPasswordHash" class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn btn-primary">Kreiraj</button>
-    
         </form>
     </div>
 </body>
+
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -87,7 +92,7 @@
                 return this.optional(element) || /^(?=.*[A-Z])(?=.*[#@@$%^&+=!]).*$/.test(value);
         }, "Lozinka mora sadržati barem jedno veliko slovo i jedan specijalni karakter.");
 
-           
+
             $("form").validate({
                 rules: {
                     FirstName: {
@@ -119,7 +124,7 @@
                         minlength: 6,
                         maxlength: 50,
                     passwordStrength: true
-                    }, 
+                    },
                     ConfirmPasswordHash :{
                         required: true,
                         equalTo: "#PasswordHash"
@@ -145,7 +150,7 @@
                         required: "Telefonski broj je  obavezan JS",
                         digits: "Unesite samo brojeve ",
                         minlength: "Telefonski broj mora da ima minimum 9 brojeva JS",
-                        maxlength: "Telefonski broj bude manje od 15 brojeva JS (9-15)", 
+                        maxlength: "Telefonski broj bude manje od 15 brojeva JS (9-15)",
                     },
                     Address :{
                         required: "Adresa je  obavezna JS",
@@ -171,4 +176,5 @@
         });
     </script>
 }
+
 

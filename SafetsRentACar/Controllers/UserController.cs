@@ -70,6 +70,63 @@ namespace SafetsRentACar.Controllers
 
             return View(model);
         }
+        /// <summary>
+        /// ////////
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        public IActionResult Create1()
+        {
+            return View(new UserViewModel());
+        }
+
+        //POST Create
+        [HttpPost]
+        public IActionResult Create1(UserViewModel model)
+        {
+            var users = Util.UserData.InitUsers();
+
+            Console.WriteLine("Uneseno korisničko ime: " + model.Username);
+
+            ModelState.Remove("Username");
+
+            if (!ModelState.IsValid)
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine("ModelState greška: " + error.ErrorMessage);
+                }
+                return View(model);
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                // ako korisnik nije uneo username onda uzimamo vrednost mejla , ako je uneo, onda ostaje taj username
+                string username = string.IsNullOrWhiteSpace(model.Username) ? model.Email : model.Username;
+
+                var newUser = new User
+                {
+                    UserId = users.Count() + 1,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    Username = username,
+                    PasswordHash = HashPassword(model.PasswordHash),
+                    Address = model.Address,
+                };
+
+                //users.Add(newUser);
+                Util.UserData.AddUser(newUser);
+
+                return RedirectToAction("ShowAllUsers");
+            }
+
+            return View(model);
+        }
 
         private string HashPassword(string password)
         {
@@ -80,7 +137,17 @@ namespace SafetsRentACar.Controllers
                 return Convert.ToBase64String(hash);
             }
         }
-
+        /// <summary>
+        /// /////////
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <param name="FirstName"></param>
+        /// <param name="LastName"></param>
+        /// <param name="Username"></param>
+        /// <param name="Email"></param>
+        /// <param name="PhoneNumber"></param>
+        /// <param name="Address"></param>
+        /// <returns></returns>
 
         public IActionResult ShowAllUsers(int? UserId, string FirstName, string LastName, string Username, string Email, string PhoneNumber, string Address)
         {
