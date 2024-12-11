@@ -48,7 +48,9 @@ namespace SafetsRentACar.Models
 
         public enum CarType
         {
+            [Display(Name = "Limuzina")]
             Sedan,
+
             SUV,
             Coupe,
             Hatchback,

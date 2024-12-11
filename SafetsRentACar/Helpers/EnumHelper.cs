@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace SafetsRentACar.Helpers
 {
@@ -9,13 +10,24 @@ namespace SafetsRentACar.Helpers
             var items = new List<SelectListItem>
             {
 
-                new SelectListItem {Value = "", Text = placeholder}
+                new SelectListItem {Value = "", Text = placeholder, Disabled = true, Selected = true} // Placeholder kao nevalidan
             };
 
-            items.AddRange(Enum.GetValues(typeof(TEnum)).Cast<TEnum>().Select(e => new SelectListItem
+            items.AddRange(Enum.GetValues(typeof(TEnum)).Cast<TEnum>().Select(e =>
+
             {
-                Value = e.ToString(),
-                Text = e.ToString()
+            var displayAttribute = e.GetType()
+                                   .GetField(e.ToString())
+                                   .GetCustomAttributes(typeof(DisplayAttribute), false)
+                                   .FirstOrDefault() as DisplayAttribute;
+
+                    return new SelectListItem
+                    {
+                        Value = e.ToString(),
+                        Text = displayAttribute?.Name ?? e.ToString()
+
+                    };
+
             }));
 
             return items;

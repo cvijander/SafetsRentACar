@@ -43,9 +43,7 @@ namespace SafetsRentACar.Controllers
                 }
                 return View(model);
             }
-
-            if (ModelState.IsValid)
-            {
+                      
                 
                 // ako korisnik nije uneo username onda uzimamo vrednost mejla , ako je uneo, onda ostaje taj username
                 string username = string.IsNullOrWhiteSpace(model.Username) ? model.Email : model.Username;
@@ -66,7 +64,7 @@ namespace SafetsRentACar.Controllers
                 Util.UserData.AddUser(newUser);
 
                 return RedirectToAction("ShowAllUsers");
-            }
+           
 
             return View(model);
         }

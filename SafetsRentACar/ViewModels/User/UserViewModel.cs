@@ -35,7 +35,7 @@ namespace SafetsRentACar.ViewModels.User
 
 
 
-        public string Username { get; set; }
+        public string ? Username  { get; set; }
 
         [Required(ErrorMessage = "Password  je obavezan")]
         [DataType(DataType.Password)]
