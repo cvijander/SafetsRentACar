@@ -1,38 +1,107 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafetsRentACar.Models
 {
+    [Table("Car")]
     public class Car
     {
+
         public enum CarMake
         {
+            [Display(Name = "Audi")]
             Audi,
+            [Display(Name = "Alfa Romeo")]
+            AlfaRomeo,
+            [Display(Name = "BMW")]
             BMW,
+            [Display(Name = "Nisan")]
             Nissan,
+            [Display(Name = "Ford")]
             Ford,
+            [Display(Name = "Fiat")]
+            Fiat,
+            [Display(Name = "Micubisi")]
             Mitsubishi,
+            [Display(Name = "Mazda")]
             Mazda,
+            [Display(Name = "Kia")]
+            Kia,
+            [Display(Name = "Hjundai")]
+            Hyundai,
+            [Display(Name = "Honda")]
             Honda,
+            [Display(Name = "Tesla")]
             Tesla,
+            [Display(Name = "Tojota")]
             Toyota,
+            [Display(Name = "Subaru")]
             Subaru,
-            Volkswagen
+            [Display(Name = "Volksvagen")]
+            Volkswagen,
+            [Display(Name = "Pezo")]
+            Peugeot,
+            [Display(Name = "Reno")]
+            Renaulth,
+            [Display(Name = "Volvo")]
+            Volvo,
+            [Display(Name = "Skoda")]
+            Skoda,
+            [Display(Name = "Lancia")]
+            Lanchia,
+            [Display(Name = "Citroen")]
+            Citroen,
+            [Display(Name = "Seat")]
+            Seat,
+            [Display(Name = "Bentli")]
+            Bentley,
+            [Display(Name = "Sab")]
+            Saab,
+            [Display(Name = "Opel")]
+            Opel,
+            [Display(Name = "Mini")]
+            Mini,
+            [Display(Name = "Smart")]
+            Smart,
+            [Display(Name = "Aston martin")]
+            AstonMartin,
+            [Display(Name = "Jaguar")]
+            Jaguar,
+            [Display(Name = "Rover")]
+            Rover,
+            [Display(Name = "Zastava")]
+            Zastava,
+            [Display(Name = "Ferari")]
+            Ferarri,
+            [Display(Name = "Lamburdzini")]
+            Lambourgini,
+
+
+
+
         }
 
         public enum FuelType
         {
+            [Display(Name = "Benzin")]
             Gasoline,
+            [Display(Name = "Dizel")]
             Diesel,
+            [Display(Name = "Elektro")]
             Electric,
+            [Display(Name = "Hibrid")]
             Hybrid,
+            [Display(Name = "Plin")]
             Lpg
             
         }
 
         public enum TransmisionType
         {
+            [Display(Name = "Automatski menjac")]
             Automatic,
+            [Display(Name = "Manuelni menjac")]
             Manual
         }
 
@@ -40,9 +109,11 @@ namespace SafetsRentACar.Models
         
         public enum DriveType
         {
-            [Description("Prednji pogon")]
+            [Display(Name = "Prednji pogon")]
             FrontWheel,
+            [Display(Name = "Zadnji pogon")]
             RearWheel,
+            [Display(Name = "Pogon na sva 4 tocka")]
             AllWheel
         }
 
@@ -50,35 +121,61 @@ namespace SafetsRentACar.Models
         {
             [Display(Name = "Limuzina")]
             Sedan,
-
+            [Display(Name = "SUV")]
             SUV,
+            [Display(Name = "Kupe")]
             Coupe,
+            [Display(Name = "Hecbek")]
             Hatchback,
+            [Display(Name = "Miniven")]
             Minivan,
+            [Display(Name = "Kamion")]
             Truck,
+            [Display(Name = "Pikap")]
             Pickup
         }
 
         public enum NumberSeats
         {
+            [Display(Name = "Dva sedista")]
             Two = 2,
+            [Display(Name = "Tri sedista")]
+            Three = 3,
+            [Display(Name = "Cetiri sedista")]
+            Four = 4,
+            [Display(Name = "Pet sedista")]
             Five = 5,
+            [Display(Name = "Sest sedista")]
+            Six = 6,
+            [Display(Name = "Sedam sedista")]
             Seven = 7,
+            [Display(Name = "Osam sedista")]
             Eight = 8,
+            [Display(Name = "Devet i sedista")]
             More = 9
         }
 
         public enum ColorType
         {
+            [Display(Name = "Bela")]
             White,
+            [Display(Name = "Crna")]
             Black,
+            [Display(Name = "Siva")]
             Gray,
+            [Display(Name = "Plava")]
             Blue,
+            [Display(Name = "Zuta")]
             Yellow,
+            [Display(Name = "Zelena")]
             Green,
+            [Display(Name = "Narandzasta")]
             Orange,
+            [Display(Name = "Srebrna")]
             Silver,
+            [Display(Name = "Crvena")]
             Red,
+            
 
 
         }
@@ -133,8 +230,8 @@ namespace SafetsRentACar.Models
         [StringLength(15)]
         public string LicencePlate { get; set; }
 
-        [Url]
-        public string ImageUrl { get;set; }
+        
+        public string? ImageUrl { get;set; }
         
     
     

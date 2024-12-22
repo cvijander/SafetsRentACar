@@ -17,8 +17,8 @@ namespace SafetsRentACar
 
         public DbSet<Review> Reviews { get; set; }
 
-        public DbSet<Service> Services { get; set; }
+      //  public DbSet<CarService> Services { get; set; }
 
-        public DbSet<Payments> Payments { get; set; }
+        public DbSet<Payment> Payments { get; set; }
     }
 }

@@ -2,5 +2,6 @@
 {
     public class Review
     {
+        public int ReviewId { get; set; }
     }
 }

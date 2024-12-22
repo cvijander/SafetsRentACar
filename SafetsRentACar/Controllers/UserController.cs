@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//using AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using SafetsRentACar.Models;
+using SafetsRentACar.Service;
 using SafetsRentACar.ViewModels.User;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,11 +11,35 @@ namespace SafetsRentACar.Controllers
 {
     public class UserController : Controller
     {
+        //private readonly SafetsRentalContext _context;
 
+        //private readonly IUserService _userService;
+
+        private readonly IUnitOfWork _unitOfWork;
+
+        //public UserController(SafetsRentalContext context)
+        //{
+        //    _context = context;
+        //}
+
+        //public UserController(IUserService userService)
+        //{
+        //    _userService = userService;
+        //}
+
+        public UserController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         public IActionResult Index( )
         {
-            var users = Util.UserData.InitUsers();
+           // var users = _context.Users.AsQueryable();
+            //var users = Util.UserData.InitUsers();
+
+           // var users = _userService.GetAllUsers();
+
+            var users = _unitOfWork.UserService.GetAllUsers();
 
             return View(users);
         }
@@ -29,7 +55,8 @@ namespace SafetsRentACar.Controllers
         [HttpPost]
         public IActionResult Create(UserViewModel model)
         {
-            var users = Util.UserData.InitUsers();
+           // var users = Util.UserData.InitUsers();
+
 
             Console.WriteLine("Uneseno korisničko ime: " + model.Username);
 
@@ -50,7 +77,7 @@ namespace SafetsRentACar.Controllers
 
                 var newUser = new User
                 {
-                    UserId = users.Count() + 1,
+                   
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
@@ -61,7 +88,14 @@ namespace SafetsRentACar.Controllers
                 };
 
                 //users.Add(newUser);
-                Util.UserData.AddUser(newUser);
+               // Util.UserData.AddUser(newUser);
+
+            // _context.Users.Add(newUser);
+            // _context.SaveChanges();
+              // _userService.AddUser(newUser);
+
+            _unitOfWork.UserService.AddUser(newUser);
+            _unitOfWork.SaveChanges();
 
                 return RedirectToAction("ShowAllUsers");
            
@@ -149,42 +183,49 @@ namespace SafetsRentACar.Controllers
 
         public IActionResult ShowAllUsers(int? UserId, string FirstName, string LastName, string Username, string Email, string PhoneNumber, string Address)
         {
-            var users = Util.UserData.InitUsers();
+            //  var users = Util.UserData.InitUsers();
 
-            if (UserId != null)
-            {
-                users = users.Where(u => u.UserId == UserId);
-            }
 
-            if (FirstName != null)
-            {
-                users = users.Where(u => u.FirstName.ToLower() == FirstName.ToLower().Trim());
-            }
+            // var users = _context.Users.AsQueryable();
 
-            if( LastName != null)
-            {
-                users = users.Where(u => u.LastName.ToLower() == LastName.ToLower().Trim());
-            }
+           // var users = _userService.GetAllFilteredUsers(UserId, FirstName, LastName, Username, Email, PhoneNumber, Address);
 
-            if( Username != null)
-            {
-                users = users.Where(u => u.Username.ToLower() == Username.ToLower().Trim());
-            }
+            var users = _unitOfWork.UserService.GetAllFilteredUsers(UserId, FirstName, LastName, Username, Email, PhoneNumber, Address);
 
-            if( Email != null)
-            {
-                users = users.Where(u => u.Email.ToLower() == Email.ToLower().Trim());
-            }
+            //if (UserId != null)
+            //{
+            //    users = users.Where(u => u.UserId == UserId);
+            //}
 
-            if(PhoneNumber != null)
-            {
-                users = users.Where(u => u.PhoneNumber.ToLower() == PhoneNumber.ToLower().Trim());
-            }
+            //if (FirstName != null)
+            //{
+            //    users = users.Where(u => u.FirstName.ToLower() == FirstName.ToLower().Trim());
+            //}
 
-            if (Address != null)
-            {
-                users = users.Where(u => u.Address.ToLower() == Address.ToLower().Trim());
-            }
+            //if( LastName != null)
+            //{
+            //    users = users.Where(u => u.LastName.ToLower() == LastName.ToLower().Trim());
+            //}
+
+            //if( Username != null)
+            //{
+            //    users = users.Where(u => u.Username.ToLower() == Username.ToLower().Trim());
+            //}
+
+            //if( Email != null)
+            //{
+            //    users = users.Where(u => u.Email.ToLower() == Email.ToLower().Trim());
+            //}
+
+            //if(PhoneNumber != null)
+            //{
+            //    users = users.Where(u => u.PhoneNumber.ToLower() == PhoneNumber.ToLower().Trim());
+            //}
+
+            //if (Address != null)
+            //{
+            //    users = users.Where(u => u.Address.ToLower() == Address.ToLower().Trim());
+            //}
 
 
 
@@ -196,23 +237,29 @@ namespace SafetsRentACar.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var users = Util.UserData.InitUsers();
-            User singleUser = users.FirstOrDefault(u => u.UserId == id);
+            // var users = Util.UserData.InitUsers();
+            //  User singleUser = users.FirstOrDefault(u => u.UserId == id);
 
-            if (singleUser == null)
+
+            //var user = _context.Users.FirstOrDefault(u => u.UserId == id);
+
+           // var user = _userService.GetUserById(id);
+            var user = _unitOfWork.UserService.GetUserById(id);
+
+            if (user == null)
             {
                 return NotFound();
             }
 
             UserViewModel model = new UserViewModel
             {
-                FirstName = singleUser.FirstName,
-                LastName = singleUser.LastName,
-                Email = singleUser.Email,
-                PhoneNumber = singleUser.PhoneNumber,
-                Address = singleUser.Address,
-                Username = singleUser.Username,
-                PasswordHash = HashPassword(singleUser.PasswordHash),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
+                Username = user.Username,
+                PasswordHash = HashPassword(user.PasswordHash),
             };
 
             return View(model);
@@ -223,19 +270,27 @@ namespace SafetsRentACar.Controllers
         [HttpPost]
         public IActionResult Edit(int id, UserViewModel model)
         {
-            var users = Util.UserData.InitUsers();
-            User user = users.FirstOrDefault( u => u.UserId == id);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+           // var user = _userService.GetUserById(id);
+            var user = _unitOfWork.UserService.GetUserById(id);
+            //  var users = Util.UserData.InitUsers();
+            // User user = users.FirstOrDefault( u => u.UserId == id);
+
+            // var user = _context.Users.FirstOrDefault(u => u.UserId == id);
+
+
             if ( user == null)
             {
                 return NotFound();
             }
 
-            ModelState.Remove("Username");
 
-            if(!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            ModelState.Remove("Username");
+            
 
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
@@ -245,6 +300,12 @@ namespace SafetsRentACar.Controllers
             user.Username = string.IsNullOrWhiteSpace(model.Username) ? model.Email : model.Username;
             user.PasswordHash = model.PasswordHash;
 
+
+            // _context.SaveChanges();
+           // _userService.UpdateUser(user);
+            _unitOfWork.UserService.UpdateUser(user);
+            _unitOfWork.SaveChanges();
+
             return RedirectToAction("ShowAllUsers");
         }
 
@@ -252,31 +313,48 @@ namespace SafetsRentACar.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var users = Util.UserData.InitUsers();
-            User singleUser = users.FirstOrDefault(u => u.UserId == id);
+            // var users = Util.UserData.InitUsers();
+            // User singleUser = users.FirstOrDefault(u => u.UserId == id);
 
-            if(singleUser ==null)
+
+            //var user = _context.Users.FirstOrDefault(u => u.UserId == id);
+
+           // var user = _userService.GetUserById(id);
+            var user = _unitOfWork.UserService.GetUserById(id);
+
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(singleUser);
+            return View(user);
         }
 
         // POST Delete user 
         [HttpPost]
         public IActionResult DeleteConfirmed(int id)
         {
-            var users = Util.UserData.InitUsers();
-            User user = users.FirstOrDefault(u => u.UserId == id);
+            //var users = Util.UserData.InitUsers();
+            // User user = users.FirstOrDefault(u => u.UserId == id);
 
-            if( user == null )
+            // var user = _context.Users.FirstOrDefault(u => u.UserId == id);
+            //var user = _userService.GetUserById(id);
+            var user = _unitOfWork.UserService.GetUserById(id);
+
+
+            if ( user == null )
             {
                 return NotFound();
             }
+           // _userService.DeleteUser(id);
+            _unitOfWork.UserService.DeleteUser(id);
+            _unitOfWork.SaveChanges();
 
             //_users.Remove(user);
-            Util.UserData.RemoveUser(id);
+            // Util.UserData.RemoveUser(id);
+
+            // _context.Users.Remove(user);
+            // _context.SaveChanges();
 
             return RedirectToAction("ShowAllUsers");
         }

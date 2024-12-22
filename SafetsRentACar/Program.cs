@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SafetsRentACar;
+using SafetsRentACar.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<SafetsRentalContext>(
-    op => op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    op => op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).
+    EnableSensitiveDataLogging().LogTo(Console.WriteLine, LogLevel.Information));
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 var app = builder.Build();
 

@@ -1,6 +1,6 @@
 ﻿namespace SafetsRentACar.Models
 {
-    public class Service
+    public class CarService
     {
 
         public enum ServiceType

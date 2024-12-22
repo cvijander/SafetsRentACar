@@ -42,6 +42,15 @@
                                 <li>@Html.ActionLink("Show all users","ShowAllUsers","User", null, new {@class ="dropdown-item"})</li>                                    
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Car
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>@Html.ActionLink("Create a new car", "Create", "Car", null, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Show all cars", "ShowAllCars", "Car", null, new { @class = "dropdown-item" })</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
