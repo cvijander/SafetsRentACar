@@ -6,3 +6,134 @@
 
 
 <h1>Pozdrav iz user viewa</h1>
+
+@model SafetsRentACar.Models.PaginatedUsersViewModel
+
+@{
+    ViewData["Title"] = "Show all users Index page";
+}
+
+<div class="container-fluid" id="search-container">
+    <div class="row">
+        <div class="col col-12">
+            <form asp-action="ShowAllUsers" method="get" class="search-form">
+                <div class="row">
+                    <div class="col  col-md-6 col-lg-4 col-xl-3">
+                        <label for="UserId" class="form-label">User Id</label>
+                        <input type="number" step="1" class="form-control" id="UserId" name="UserId" value="@Context.Request.Query["UserId"]" />
+                    </div>
+
+                    <div class="col  col-md-6 col-lg-4 col-xl-3">
+                        <label for="FirstName" class="form-label">Ime</label>
+                        <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Context.Request.Query["FirstName"]" />
+                    </div>
+
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="LastName" class="form-label">Prezime</label>
+                        <input type="text" class="form-control" id="LastName" name="LastName" value="@Context.Request.Query["LastName"]" />
+                    </div>
+
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="Username" class="form-label">Korisnicko ime</label>
+                        <input type="text" class="form-control" id="Username" name="Username" value="@Context.Request.Query["Username"]" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="Email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="Email" name="Email" value="@Context.Request.Query["Email"]" />
+                    </div>
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="PhoneNumber" class="form-label">Broj telefona</label>
+                        <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" value="@Context.Request.Query["PhoneNumber"]" />
+                    </div>
+                    <div class="col col-md-6 col-lg-4 col-xl-3">
+                        <label for="Address" class="form-label">Adresa</label>
+                        <input type="text" id="Address" name="Address" class="form-control" value="@Context.Request.Query["Address"]" />
+                    </div>
+
+                    <input type="hidden" name="pageCount" id="pageCount" value="@Context.Request.Query["pageCount"]" />
+                    <input type="hidden" name="pageSize" id="pageSize" value="@Context.Request.Query["pageSize"]" />
+
+                    <div class="col col-md-12 col-lg-4 col-xl-3">
+                        <button type="submit" class="btn btn-primary ">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>UserId</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            <th>Address</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (User singleUser in Model.Users)
+        {
+            <tr>
+                <td>@singleUser.UserId</td>
+                <td>@singleUser.FirstName</td>
+                <td>@singleUser.LastName</td>
+                <td>@singleUser.Username</td>
+                <td>@singleUser.Email</td>
+                <td>@singleUser.PhoneNumber</td>
+                <td>@singleUser.Address</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@singleUser.UserId" class="btn btn-warning btn-sm">Edit</a>
+                    <form asp-action="DeleteConfirmed" asp-route-id="@singleUser.UserId" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @foreach(User singleUser in Model.Users)
+    {
+        <div class="user-card">
+            <h2>@singleUser.UserId </h2>
+            <h3>@singleUser.FirstName  @singleUser.LastName </h3>
+            <p>@singleUser.Username  @singleUser.Email</p>
+            <a href="@Url.Action("Details","User", new {id = singleUser.UserId})">Prikazi dodatne detalje o korisniku</a> 
+        </div>
+    }
+</div>
+
+    <input type="hidden" name="pageSize" id="pageSize" value="@Context.Request.Query["pageSize"]" />
+       
+    <input type="hidden" name="pageCount" id="pageCount" value="@Context.Request.Query["pageCount"]" />
+        @if(Model.HasNextPage)
+        {
+            <a href="@Url.Action("Index","User", new { page = (Model.CurrentPage +1 ).ToString() })">Next</a>
+        } 
+        
+     
+        
+       @if (Model.HasPreviousPage)
+        {
+            <a href="@Url.Action("Index","User", new { page = (Model.CurrentPage -1 ).ToString() })">Previous</a>
+        }
+<div>
+
+</div> 
+
+<style>
+    .user-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 10px 0;
+        background-color: #f9f9f9;
+    }
+</style>

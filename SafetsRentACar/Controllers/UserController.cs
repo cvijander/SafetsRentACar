@@ -32,7 +32,7 @@ namespace SafetsRentACar.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index( )
+        public IActionResult Index(int page = 1 )
         {
            // var users = _context.Users.AsQueryable();
             //var users = Util.UserData.InitUsers();
@@ -41,7 +41,28 @@ namespace SafetsRentACar.Controllers
 
             var users = _unitOfWork.UserService.GetAllUsers();
 
-            return View(users);
+            var pageSize = 5;
+
+            PaginatedUsersViewModel puvm = new PaginatedUsersViewModel();
+            
+            puvm.PageSize = pageSize;
+            puvm.CurrentPage = page;
+            puvm.TotalPages = (users.Count() / pageSize) ;
+            if(users.Count() % pageSize != 0)
+            {
+                puvm.TotalPages++;
+            }
+            
+            puvm.HasNextPage = puvm.CurrentPage < puvm.TotalPages;
+            puvm.HasPreviousPage = puvm.CurrentPage > 1;
+
+            users = users.Skip(pageSize * (page-1)).Take(pageSize);
+
+            puvm.Users = users;
+
+
+
+            return View(puvm);
         }
 
         // GET Create

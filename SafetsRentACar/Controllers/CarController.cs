@@ -315,12 +315,40 @@ namespace SafetsRentACar.Controllers
 
 
 
-        public IActionResult Index()
+        public IActionResult Index( int page = 1)
         {
             var cars = _unitOfWork.CarService.GetAllCars();
 
+            //if (make != null)
+            //{
+            //    cars = cars.Where(c => c.Make.ToString().ToLower() == make.ToLower().Trim());
+            //}
+
+            //if (model != null)
+            //{
+            //    cars = cars.Where(c => c.Model.ToLower() == model.ToLower().Trim());
+            //}
+
+            //if (minPrice > 0)
+            //{
+            //    cars = cars.Where(c => c.PricePerDay >= minPrice);
+            //}
+
+            //if (maxPrice > 0)
+            //{
+            //    cars = cars.Where(c => c.PricePerDay <= maxPrice);
+            //}
+
+            var pageSize = 10;
+
+            cars = cars.Skip(pageSize * (page -1)).Take(pageSize);
+
+
+
             return View(cars);
-            
+
+
+
         }
 
 
